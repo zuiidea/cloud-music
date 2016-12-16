@@ -3,13 +3,20 @@
         "css": [
             "src/css/**/*.less"
         ],
-        "cssEntry": "src/css/app.less",
+        "cssPub": [
+          "src/lib/framework7.material.min.css",
+          "src/lib/framework7.material.colors.min.css",
+          "src/css/app.less"
+        ],
         "js": [
-            "src/js/**/*.js",
-            "!src/js/framework7.min.js"
+            "src/js/**/*.js"
+        ],
+        "jsPub": [
+            "src/lib/*.js",
+            "src/js/**/*.js"
         ],
         "html": [
-            "src/html/**/*.html"
+            "src/**/*.html"
         ],
         "img": [
             "src/img/**/*.*"
@@ -23,7 +30,7 @@
         "css": "dist/css/",
         "img": "dist/img/",
         "js": "dist/js/",
-        "html": "dist/html/",
+        "html": "dist/",
         "lib": "dist/lib/",
         "module": "dist/module/"
     }

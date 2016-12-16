@@ -9,8 +9,9 @@ var gulp = require('gulp'),
     clean = require('gulp-clean'),
     plumber = require('gulp-plumber'),
     template = require('gulp-template'),
-     _task = require('./gulp-task'),
-    config = require('./gulpconfig.json')
+    config = require('./gulpconfig.json'),
+    cached = require('gulp-cached'),
+    remember = require('gulp-remember')
 
 //css
 gulp.task('css', function() {
@@ -25,14 +26,12 @@ gulp.task('css', function() {
 })
 
 gulp.task('css-min',function() {
-    return gulp.src(config.src.cssEntry)
+    return gulp.src(config.src.cssPub)
         .pipe(plumber())
         .pipe(less())
         .pipe(autoprefixer())
         .pipe(minifycss())
-        .pipe(rename({
-          suffix: '.min'
-         }))
+        .pipe(concat('app.min.css'))
         .pipe(gulp.dest(config.dest.css))
 })
 
@@ -45,7 +44,7 @@ gulp.task('js', function() {
 })
 
 gulp.task('js-min',function() {
-    return gulp.src(config.src.js)
+    return gulp.src(config.src.jsPub)
         .pipe(plumber())
         .pipe(concat('app.min.js'))
         .pipe(uglify())
@@ -64,9 +63,9 @@ gulp.task('html', function() {
     return gulp.src(config.src.html)
         .pipe(plumber())
         .pipe(template({
-          js: '<script src="../../lib/framework7.min.js"></script>',
-          css:'<link rel="stylesheet" href="../../css/framework7.material.min.css">\n\t\t'
-          +'<link rel="stylesheet" href="../../css/framework7.material.colors.min.css">'
+          js: '<script src="lib/framework7.min.js"></script>',
+          css:'<link rel="stylesheet" href="lib/framework7.material.min.css">\n\t\t'
+          +'<link rel="stylesheet" href="lib/framework7.material.colors.min.css">'
         }))
         .pipe(gulp.dest(config.dest.html))
 })
@@ -74,6 +73,10 @@ gulp.task('html', function() {
 gulp.task('html-min', function() {
     return gulp.src(config.src.html)
         .pipe(plumber())
+        .pipe(template({
+          js: '',
+          css:''
+        }))
         .pipe(gulp.dest(config.dest.html))
 })
 
@@ -88,10 +91,12 @@ gulp.task('lib', function() {
 // watch
 gulp.task('browserSync', function() {
     browserSync({
+        open: false,
         files: [
             config.dest.css,
             config.dest.js,
             config.dest.img,
+            config.dest.lib,
             config.dest.html
         ],
         server: {
@@ -108,20 +113,15 @@ gulp.task('clean', function() {
         .pipe(clean())
 })
 
-gulp.task('dev', ['css', 'js', 'html', 'img', 'lib','browserSync'], function() {
+gulp.task('default', ['css', 'js', 'html', 'img', 'lib','browserSync'], function() {
     var watcher = gulp.watch(config.src.css, ['css'])
     gulp.watch(config.src.html, ['html'])
     gulp.watch(config.src.img, ['img'])
     gulp.watch(config.src.js, ['js'])
+    gulp.watch(config.src.lib, ['lib'])
     watcher.on('change', function(event) {
         console.log('File ' + event.path + ' was ' + event.type + ', running tasks...')
     })
-})
-
-gulp.task('default',['dev'],function() {
-  _task({
-      projectName: 'Cloud Music'
-  })
 })
 
 gulp.task('publish', ['clean'], function() {

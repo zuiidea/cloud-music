@@ -15,4 +15,5 @@ var App = new Framework7({
 
 var $ = Dom7
 
+
 var mainView = App.addView('.view-main', {dynamicNavbar: true})
