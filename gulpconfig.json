@@ -24,7 +24,7 @@
         "lib": [
             "src/lib/*.*"
         ],
-        "clean": "dist/**/*.*"
+        "clean": "dist"
     },
     "dest": {
         "css": "dist/css/",
