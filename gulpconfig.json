@@ -3,21 +3,19 @@
         "css": [
             "src/css/**/*.less"
         ],
-        "entry": [
-            "src/js/**/entry.js"
-        ],
-        "baseJs": [
-            "src/js/base/*.js"
-        ],
+        "cssEntry": "src/css/app.less",
         "js": [
             "src/js/**/*.js",
-            "!src/js/**/entry.js"
+            "!src/js/framework7.min.js"
         ],
         "html": [
             "src/html/**/*.html"
         ],
         "img": [
             "src/img/**/*.*"
+        ],
+        "lib": [
+            "src/lib/*.*"
         ],
         "clean": "dist/**/*.*"
     },
@@ -26,10 +24,7 @@
         "img": "dist/img/",
         "js": "dist/js/",
         "html": "dist/html/",
+        "lib": "dist/lib/",
         "module": "dist/module/"
-    },
-    "res": {
-        "css": "dist/css/**/*.css",
-        "js": "dist/js/**/*.js"
     }
 }

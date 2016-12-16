@@ -8,9 +8,9 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     clean = require('gulp-clean'),
     plumber = require('gulp-plumber'),
-    seajsCombo = require('gulp-seajs-combo'),
+    template = require('gulp-template'),
      _task = require('./gulp-task'),
-    config = require('./gulpconfig.json');
+    config = require('./gulpconfig.json')
 
 //css
 gulp.task('css', function() {
@@ -18,64 +18,72 @@ gulp.task('css', function() {
         .pipe(plumber())
         .pipe(less())
         .pipe(autoprefixer())
-        .pipe(minifycss())
+        .pipe(rename({
+          suffix: '.min'
+         }))
         .pipe(gulp.dest(config.dest.css))
-});
+})
 
-gulp.task('css-min', ['css'], function() {
-    return gulp.src(config.res.css)
+gulp.task('css-min',function() {
+    return gulp.src(config.src.cssEntry)
+        .pipe(plumber())
+        .pipe(less())
+        .pipe(autoprefixer())
         .pipe(minifycss())
-        .pipe(gulp.dest(config.dest.css));
-});
+        .pipe(rename({
+          suffix: '.min'
+         }))
+        .pipe(gulp.dest(config.dest.css))
+})
 
 // js
+gulp.task('js', function() {
+    return gulp.src(config.src.js)
+        .pipe(plumber())
+        .pipe(concat('app.min.js'))
+        .pipe(gulp.dest(config.dest.js))
+})
 
-var modulePath = '../module/';
-gulp.task('entry', function() {
-    return gulp.src(config.src.entry)
-        .pipe(seajsCombo({
-            map: {
-                "swiper": modulePath + "swiper/swiper.js",
-                "layer": modulePath + "layer/layer.js",
-                "flexible": modulePath + "flexible/flexible.js",
-                "fastclick": modulePath + "fastclick/fastclick.js"
-            }
-        }))
-        .pipe(rename({
-            basename: 'build'
-        }))
-        .pipe(gulp.dest(config.dest.js));
-});
-
-gulp.task('baseJs', function() {
-    return gulp.src(config.src.baseJs)
-        .pipe(concat('base.js'))
-        .pipe(gulp.dest(config.dest.js));
-});
-
-gulp.task('js',['entry','baseJs'], function() {
-
-});
-
-gulp.task('js-min', ['js'],function() {
-    return gulp.src(config.res.js)
+gulp.task('js-min',function() {
+    return gulp.src(config.src.js)
+        .pipe(plumber())
+        .pipe(concat('app.min.js'))
         .pipe(uglify())
-        .pipe(gulp.dest(config.dest.js));
-});
+        .pipe(gulp.dest(config.dest.js))
+})
 
 // img
 gulp.task('img', function() {
     return gulp.src(config.src.img)
         .pipe(plumber())
-        .pipe(gulp.dest(config.dest.img));
-});
+        .pipe(gulp.dest(config.dest.img))
+})
 
 // html
 gulp.task('html', function() {
     return gulp.src(config.src.html)
         .pipe(plumber())
-        .pipe(gulp.dest(config.dest.html));
-});
+        .pipe(template({
+          js: '<script src="../../lib/framework7.min.js"></script>',
+          css:'<link rel="stylesheet" href="../../css/framework7.material.min.css">\n\t\t'
+          +'<link rel="stylesheet" href="../../css/framework7.material.colors.min.css">'
+        }))
+        .pipe(gulp.dest(config.dest.html))
+})
+
+gulp.task('html-min', function() {
+    return gulp.src(config.src.html)
+        .pipe(plumber())
+        .pipe(gulp.dest(config.dest.html))
+})
+
+// html
+gulp.task('lib', function() {
+    return gulp.src(config.src.lib)
+        .pipe(plumber())
+        .pipe(gulp.dest(config.dest.lib))
+})
+
 
 // watch
 gulp.task('browserSync', function() {
@@ -89,33 +97,33 @@ gulp.task('browserSync', function() {
         server: {
             baseDir: "./dist/"
         }
-    });
-});
+    })
+})
 
 // clean
 gulp.task('clean', function() {
     return gulp.src(config.src.clean, {
             read: false
         })
-        .pipe(clean());
-});
+        .pipe(clean())
+})
 
-gulp.task('dev', ['css', 'js', 'html', 'img', 'browserSync'], function() {
-    var watcher = gulp.watch(config.src.css, ['css']);
-    gulp.watch(config.src.html, ['html']);
-    gulp.watch(config.src.img, ['img']);
-    gulp.watch(config.src.js, ['js']);
+gulp.task('dev', ['css', 'js', 'html', 'img', 'lib','browserSync'], function() {
+    var watcher = gulp.watch(config.src.css, ['css'])
+    gulp.watch(config.src.html, ['html'])
+    gulp.watch(config.src.img, ['img'])
+    gulp.watch(config.src.js, ['js'])
     watcher.on('change', function(event) {
-        console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
-    });
-});
+        console.log('File ' + event.path + ' was ' + event.type + ', running tasks...')
+    })
+})
 
 gulp.task('default',['dev'],function() {
   _task({
-      projectName: 'seajsExample'
+      projectName: 'Cloud Music'
   })
-});
+})
 
-gulp.task('pub', ['clean'], function() {
-    gulp.start('css-min', 'js-min','html', 'img');
-});
+gulp.task('publish', ['clean'], function() {
+    gulp.start('css-min', 'js-min','html-min', 'img')
+})
