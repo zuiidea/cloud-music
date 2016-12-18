@@ -17,3 +17,4 @@ var $ = Dom7
 
 
 var mainView = App.addView('.view-main', {dynamicNavbar: true})
+mainView.router.load({url:'page/song.html'})
