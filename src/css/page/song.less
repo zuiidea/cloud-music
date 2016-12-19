@@ -6,7 +6,7 @@
 
 .page-song() {
     background-image: url("../img/song/pu.jpg");
-    background-size: contain;
+    background-size: cover;
 
     .navbar {
         background-color: transparent;
@@ -26,6 +26,14 @@
         position: relative;
         position: relative;
         margin: 70px auto 0;
+
+        &.stop {
+            .turn{
+              &::after,.album{
+                  animation-play-state: paused;
+              }
+            }
+        }
 
         &::after {
             .pseudo();
@@ -61,6 +69,7 @@
                 width: 184px;
                 height: 184px;
                 border-radius: 50%;
+                animation: truning 20s infinite linear;
             }
 
             &::after,
@@ -79,6 +88,7 @@
 
             &::after {
                 .pseudo();
+                animation: truning 20s infinite linear;
                 background-image: url("../img/song/disc_light-ip6.png");
                 background-size: cover;
             }
@@ -88,6 +98,15 @@
 
 [data-page="song"] {
     .page-song();
+}
+@keyframes truning {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 /* ip5 */
 @media screen and (min-height:300px) {}
