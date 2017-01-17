@@ -1,7 +1,7 @@
 {
-  "name": "framework7-vue-webpack-template",
+  "name": "cloud-music",
   "version": "1.0.0",
-  "description": "Framework7 Vue + Webpack starter app template",
+  "description": "cloud-music",
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js"
