@@ -5,7 +5,7 @@
 }
 
 .page-song() {
-    background-image: url("../img/song/pu.jpg");
+    background-image: url("../../img/song/pu.jpg");
     background-size: cover;
 
     .navbar {
@@ -28,10 +28,11 @@
         margin: 70px auto 0;
 
         &.stop {
-            .turn{
-              &::after,.album{
-                  animation-play-state: paused;
-              }
+            .turn {
+                &::after,
+                .album {
+                    animation-play-state: paused;
+                }
             }
         }
 
@@ -41,7 +42,7 @@
             height: 137px;
             top: -70px;
             left: 133px;
-            background-image: url("../img/song/needle-ip6.png");
+            background-image: url("../../img/song/needle-ip6.png");
             background-size: 96px auto;
         }
 
@@ -49,7 +50,7 @@
             width: 56px;
             height: 56px;
             min-width: 56px;
-            background-image: url("../img/song/play_btn-ip6.png");
+            background-image: url("../../img/song/play_btn-ip6.png");
             background-size: 56px auto;
             position: absolute;
             top: 120px;
@@ -82,21 +83,21 @@
 
             &::before {
                 .pseudo();
-                background-image: url("../img/song/disc-ip6.png");
+                background-image: url("../../img/song/disc-ip6.png");
                 background-size: cover;
             }
 
             &::after {
                 .pseudo();
                 animation: truning 20s infinite linear;
-                background-image: url("../img/song/disc_light-ip6.png");
+                background-image: url("../../img/song/disc_light-ip6.png");
                 background-size: cover;
             }
         }
     }
 }
 
-[data-page="song"] {
+.page-song {
     .page-song();
 }
 @keyframes truning {

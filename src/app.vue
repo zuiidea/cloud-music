@@ -21,17 +21,28 @@
     <!-- Main Views -->
     <f7-views>
       <f7-view id="main-view" navbar-through :dynamic-navbar="true" main>
-        <!-- Navbar -->
-        <f7-navbar>
-          <f7-nav-left>
-            <f7-link icon="icon-bars" open-panel="left"></f7-link>
-          </f7-nav-left>
-          <f7-nav-center sliding>我的音乐</f7-nav-center>
-        </f7-navbar>
         <!-- Pages -->
         <f7-pages>
           <f7-page>
-             主页
+            <f7-navbar sliding>
+             <f7-nav-left>
+               <f7-link icon="icon-bars" open-panel="left"></f7-link>
+             </f7-nav-left>
+              <f7-nav-center>我的音乐</f7-nav-center>
+              <f7-nav-right>
+                <f7-link icon="icon-search"></f7-link>
+              </f7-nav-right>
+            </f7-navbar>
+             <f7-block>
+                <f7-grid>
+                    <f7-col width="50">
+                     <f7-button href="/themes" class="button">选择主题颜色</f7-button>
+                    </f7-col>
+                    <f7-col width="50">
+                     <f7-button href="/song" class="button">打开播放页</f7-button>
+                    </f7-col>
+                </f7-grid>
+             </f7-block>
           </f7-page>
         </f7-pages>
       </f7-view>
