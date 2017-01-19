@@ -1,5 +1,5 @@
 <template>
-  <f7-page class="page-song">
+  <f7-page name="song">
    <f7-navbar back-link="Back" sliding>
      <f7-nav-center>Alone</f7-nav-center>
      <f7-nav-right>
