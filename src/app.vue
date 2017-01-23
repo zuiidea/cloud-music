@@ -41,6 +41,9 @@
                     <f7-col width="50">
                      <f7-button href="/song" class="button">打开播放页</f7-button>
                     </f7-col>
+                    <f7-col width="50">
+                     <f7-button href="/playlist" class="button">打开播放列表</f7-button>
+                    </f7-col>
                 </f7-grid>
              </f7-block>
           </f7-page>

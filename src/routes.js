@@ -1,11 +1,14 @@
 export default [
   {
-    path: '/song/',
-    // path: '/song/:postId/',
+    path: '/song',
     component: require('./pages/song.vue')
   },
   {
-    path: '/themes/',
+    path: '/themes',
     component: require('./pages/themes.vue')
+  },
+  {
+    path: '/playlist',
+    component: require('./pages/playlist.vue')
   }
 ]
